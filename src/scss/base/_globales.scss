@@ -13,6 +13,9 @@ body {
 p {
     color: $negro;
     font-size: 2rem;
+    @include tablet {
+        font-weight: 20rem;
+    }
 }
 .contenedor {
     width: 95%;
@@ -46,6 +49,7 @@ h2 {
 }
 h3 {
     font-size: 3rem;
+    height: 10rem;
 }
 h4 {
     font-size: 2.6rem;
