@@ -1,5 +1,6 @@
 <?php
-    include 'headers.php';
+    $inicio = false;
+    include 'includes/templates/headers.php';
 ?>
 
     <main class="contenedor contenido-centrado">
