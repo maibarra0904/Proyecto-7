@@ -83,20 +83,23 @@
             /** SUBIDA DE ARCHIVOS **/
 
             //Crear Carpeta
-            $carpetaImagenes = __DIR__.'../../../imagenes'; 
+            $carpetaImagenes = __DIR__.'../../../imagenes/'; 
 
             if(!is_dir($carpetaImagenes)) {
                 mkdir($carpetaImagenes);
             }
+            
+            //Generar un nombre único
+            $nombreImagen = md5( uniqid( rand(), true)).'.jpg';
+            
             //Subir la imagenes    
-
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.'/archivo.jpg');
-            exit;
+            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
+            //exit;
 
 
             //Insertar en la base de datos
-            $query =  " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, 
-            estacionamiento, creado, vendedores_id) VALUES ('$titulo', $precio, '$descripcion', $habitaciones,
+            $query =  " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, 
+            estacionamiento, creado, vendedores_id) VALUES ('$titulo', $precio, '$nombreImagen', '$descripcion', $habitaciones,
             $wc, $estacionamiento, '$creado', $vendedores_id);";
 
             //echo $query;
@@ -106,7 +109,7 @@
             if($resultado) {
                 //Redireccionar al usuario para evitar datos duplicados
 
-                header('Location: /admin');
+                header('Location: /admin?resultado=1'); //Se crea variable dentro para llamarla en index
             }
         } else {
             //echo "Registro no insertado";
@@ -121,7 +124,7 @@
 
     <main class="contenedor seccion contenido-centrado">
         <h1>Crear</h1>
-        <a href="/admin" class="boton boton-verde">Crear</a>
+        <a href="/admin" class="boton boton-verde">Regresar</a>
         <?php foreach ($errores as $error): ?>
             <div class="alert error">
                 <?php echo $error; ?>
