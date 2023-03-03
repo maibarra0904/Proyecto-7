@@ -7,6 +7,7 @@
         <h1>Contacto</h1>
     </main>
 
+    
 <?php
     incluirTemplate('footers');
 ?>
