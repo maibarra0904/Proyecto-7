@@ -2,7 +2,8 @@
     
     //Se elije la propiedad
     $id = $_GET['id'];
-    
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
 
     // Importar la conexión
     require __DIR__.'/../config/database.php';
@@ -15,6 +16,12 @@
     $resultado = mysqli_query($db, $query);
     
     //var_dump($propiedad);
+    
+    //Si no hay una propiedad con ese id redireccionar a la página principal
+    if(!$id || !$resultado->num_rows) {
+        header('Location: /');
+    }
+
 
     if($propiedad = mysqli_fetch_assoc($resultado)):;
 
@@ -58,9 +65,10 @@
     <?php echo $propiedad['descripcion_amp']; ?>
 </p>
 
-<?php endif; ?>
 
 <?php
+    endif;
+
     // Cerrar conexión
     mysqli_close($db);
 ?>
