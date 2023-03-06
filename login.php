@@ -41,11 +41,27 @@
                 //Compara la contraseña de la consulta con la ingresada por el usuario en el formulario
                 $auth = password_verify($password, $usuario['password']);
 
-                if(!$auth) {
-                    $errores[] = 'El password es incorrecto';
+                if($auth) {
+                    //Empieza la sesion
+                    session_start();
+
+                    //Asigna variables a la sesion
+                    $_SESSION['usuario'] = $usuario['email'];
+                    $_SESSION['login'] = true;
+
+                    //Redirecciona a la url correspondiente
+                    header('Location: /admin');
+
+                    //var_dump($_SESSION);
                 }
 
-                var_dump($auth);
+                else {
+                    $errores[] = 'El password es inválido o no existe';
+                    session_start();
+                    $_SESSION['login'] = false;
+                }
+
+                //var_dump($auth);
 
             } else {
                 $errores[] = 'El usuario no existe';

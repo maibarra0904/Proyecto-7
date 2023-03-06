@@ -1,4 +1,9 @@
 <?php
+    //Configuración de un usuario autenticado
+    require __DIR__.'../../../includes/funciones.php';  
+    
+    autenticar();
+
     //Validar la URL por ID valido
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -155,7 +160,7 @@
         
     };
 
-    require __DIR__.'../../../includes/funciones.php';    
+    //require __DIR__.'../../../includes/funciones.php';    
     incluirTemplate('headers');
 ?>
 

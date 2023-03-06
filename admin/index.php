@@ -1,4 +1,8 @@
 <?php
+    //Configuración de un usuario autenticado
+    require __DIR__.'../../includes/funciones.php';  
+    
+    autenticar();
 
     //*-- Pasos para crear la conexión en base de datos--*
     //Paso 1: Importar la conexión
@@ -43,7 +47,7 @@
     }
 
     //Incluir el template de encabezado
-    require __DIR__.'../../includes/funciones.php';    
+      
     incluirTemplate('headers');
 ?>
 

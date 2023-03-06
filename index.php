@@ -3,6 +3,9 @@
     require 'includes/funciones.php';    
     //include 'includes/templates/headers.php';
     incluirTemplate('headers',true);
+    
+
+
 ?>
 
     <main class="contenedor seccion">

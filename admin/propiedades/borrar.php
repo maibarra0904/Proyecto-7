@@ -1,5 +1,6 @@
 <?php
-    require __DIR__.'../../../includes/funciones.php';    
+    require __DIR__.'../../../includes/funciones.php';  
+    autenticar();
     incluirTemplate('headers');
 ?>
 

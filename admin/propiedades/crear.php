@@ -1,4 +1,8 @@
 <?php
+    //Usuario autenticado
+    require __DIR__.'../../../includes/funciones.php';  
+    autenticar();
+
     //Base de datos
     require __DIR__.'../../../includes/config/database.php';   
     $db = conectarDB();
@@ -118,7 +122,7 @@
         
     };
 
-    require __DIR__.'../../../includes/funciones.php';    
+    //require __DIR__.'../../../includes/funciones.php';    
     incluirTemplate('headers');
 ?>
 
