@@ -65,8 +65,8 @@
 
     .dark-mode-boton {
         width: 3rem;
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        margin-top: 0rem;
+        margin-bottom: 0rem;
         filter: invert(100%);
 
         &:hover {
@@ -88,4 +88,35 @@
     img {
         width: 5rem;
     }
+}
+
+.superior {
+    display: block;
+    //justify-items: center;
+    text-align: center;
+    font-size: 1.8rem;
+    @include tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        align-items: flex-start;
+    }
+    a {
+        margin-right: 2rem;
+        align-items: flex-start;
+        background-color: transparent;
+        text-transform:capitalize;
+    }
+
+    .cie {
+        color: $rojoCie;
+    }
+    .ini {
+        color: $verdeIni;
+        
+    }
+
+    
+    
+    //background-color: $blanco;
 }

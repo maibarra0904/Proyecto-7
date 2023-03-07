@@ -34,17 +34,23 @@
                 
 
                 <div class="derecha" id="menu">
-                    <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="boton oscuro">
+                    
+                    <div class="superior">
+                        <?php if($auth) { ?> 
+                            <a href="cerrar-sesion.php" class="cie">Cerrar Sesión</a>
+                        <?php } else { if($_SERVER['REQUEST_URI']!='/login.php') : ?>
+                            <a href="login.php" class="ini">Iniciar Sesión</a>
+                        <?php endif; }; ?>
+                        <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="boton oscuro">
+                    </div>
+                        
+
                     <nav class="navegacion">
                         <a href="nosotros.php">Nosotros</a>
                         <a href="anuncios.php">Anuncios</a>
                         <a href="blog.php">Blog</a>
                         <a href="contacto.php">Contacto</a>
-                        <?php if($auth) { ?> 
-                            <a href="cerrar-sesion.php">Cerrar Sesión</a>
-                        <?php } else { ?>
-                            <a href="login.php">Iniciar Sesión</a>
-                        <?php }; ?>
+                        
                     </nav>
                     
                 </div>

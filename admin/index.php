@@ -85,7 +85,7 @@
                         <td> <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" class="imagen-tabla"> </td>
                         <td> $ <?php echo $propiedad['precio']; ?> </td>
                         <td>
-                            <form method="POST" class="w-100">
+                            <form method="POST" class="w-100" onsubmit="return confirm('¿Estás seguro de eliminar la publicación: <?php echo $propiedad['titulo'] ?>?')">
 
                                 <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
                                 <input type="submit" class="boton-rojo-block" value="Eliminar">

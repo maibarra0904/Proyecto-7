@@ -1,6 +1,6 @@
 .dark-mode {
     background-color: darken($color: $grisOscuro, $amount: 10);
-
+    margin: 0;
     p, td {
         color: $blanco;
     }
