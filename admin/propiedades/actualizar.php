@@ -1,6 +1,6 @@
 <?php
     //Configuración de un usuario autenticado
-    require __DIR__.'../../../includes/funciones.php';  
+    require __DIR__.'../../../includes/app.php';  
     
     autenticar();
 
@@ -15,7 +15,7 @@
     }
 
     //Base de datos
-    require __DIR__.'../../../includes/config/database.php';   
+    //require __DIR__.'../../../includes/config/database.php';   
     $db = conectarDB();
 
     //Consulta de datos de propiedad que se va a actualizar

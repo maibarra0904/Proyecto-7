@@ -1,12 +1,13 @@
 <?php
     //Configuración de un usuario autenticado
-    require __DIR__.'../../includes/funciones.php';  
+    
+    require __DIR__.'../../includes/app.php';
     
     autenticar();
 
     //*-- Pasos para crear la conexión en base de datos--*
     //Paso 1: Importar la conexión
-    require __DIR__.'../../includes/config/database.php';
+    //require __DIR__.'../../includes/config/database.php';
     $db = conectarDB();
 
     //Paso 2: Escribir el Query

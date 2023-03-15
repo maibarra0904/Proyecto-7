@@ -1,0 +1,16 @@
+{
+    "name": "mario/proyecto7",
+    "description": "Creando proyecto con POO",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./clases"
+        }
+    },
+    "authors": [
+        {
+            "name": "maibarra0904",
+            "email": "mario.ibarra.86@gmail.com"
+        }
+    ],
+    "require": {}
+}

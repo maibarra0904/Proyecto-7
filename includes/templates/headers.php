@@ -37,7 +37,7 @@
                     
                     <div class="superior">
                         <?php if($auth) { ?> 
-                            <a href="cerrar-sesion.php" class="cie">Cerrar Sesión</a>
+                            <a href="/cerrar-sesion.php" class="cie">Cerrar Sesión</a>
                         <?php } else { if($_SERVER['REQUEST_URI']!='/login.php') : ?>
                             <a href="login.php" class="ini">Iniciar Sesión</a>
                         <?php endif; }; ?>

@@ -1,7 +1,9 @@
 <?php
 
+    require 'includes/app.php';    
+
     //Conexión a BD
-    require 'includes/config/database.php';
+    //require 'includes/config/database.php';
     $db = conectarDB();
 
     //Autenticar el usuario
@@ -42,12 +44,18 @@
                 $auth = password_verify($password, $usuario['password']);
 
                 if($auth) {
+                    //Configurar tiempo de vida
+                    // $tiempo_vida = 1800;
+                    // session_set_cookie_params($tiempo_vida);
+
                     //Empieza la sesion
                     session_start();
 
                     //Asigna variables a la sesion
                     $_SESSION['usuario'] = $usuario['email'];
                     $_SESSION['login'] = true;
+                    //Variable de tiempo de última sesión
+                    $_SESSION['ultima_actividad'] = time();
 
                     //Redirecciona a la url correspondiente
                     header('Location: /admin');
@@ -72,7 +80,7 @@
 
     //var_dump($_POST);
     //Incluir el header
-    require 'includes/funciones.php';    
+
     incluirTemplate('headers');
 ?>
 

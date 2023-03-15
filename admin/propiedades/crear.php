@@ -1,10 +1,17 @@
 <?php
     //Usuario autenticado
-    require __DIR__.'../../../includes/funciones.php';  
+    require __DIR__.'../../../includes/app.php';  
+
+    use App\propiedad;
+
+    $propiedad = new propiedad;
+
+    //var_dump($propiedad);
+
     autenticar();
 
     //Base de datos
-    require __DIR__.'../../../includes/config/database.php';   
+    //require __DIR__.'../../../includes/config/database.php';   
     $db = conectarDB();
 
     //Consulta para obtener vendedores
