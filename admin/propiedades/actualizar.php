@@ -218,7 +218,7 @@
                 <?php endwhile; ?>
             </select>
         </fieldset>
-
+        <input type="hidden" name="creado" value="<?php echo date('Y-m-d'); ?>">
         <input type="submit" value="Actualizar Propiedad" class="boton boton-verde">
     </form>
 

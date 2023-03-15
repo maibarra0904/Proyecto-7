@@ -11,16 +11,13 @@ function incluirTemplate ($nombre,$inicio = false) {
 function autenticar() {
     session_start();
 
-    $auth = $_SESSION['login'];
-
-    if(!$auth) {
+    if(!$_SESSION['login']) {
         header('Location: /');
         session_unset();
         session_destroy();
         exit;
     }
 
-    
 
     $actividad = $_SESSION['ultima_actividad'];
 
@@ -38,3 +35,10 @@ function autenticar() {
     }
 
 };
+
+function debugg($variable) {
+    echo "<pre>";
+    var_dump($variable);
+    echo "</pre>";
+    exit;
+}

@@ -4,9 +4,9 @@
 
     use App\propiedad;
 
-    $propiedad = new propiedad;
+    // $propiedad = new propiedad;
 
-    //var_dump($propiedad);
+    // debugg($propiedad);
 
     autenticar();
 
@@ -31,6 +31,12 @@
 
     //Ejecución de código después que usuario envía todos los datos del formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $propiedad = new propiedad($_POST);
+
+        //debugg($propiedad);
+        $propiedad->guardar();
+
         $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
         $precio = mysqli_real_escape_string($db, $_POST['precio']);
         $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
@@ -108,10 +114,10 @@
             //exit;
 
 
-            //Insertar en la base de datos
-            $query =  " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, 
-            estacionamiento, creado, vendedores_id) VALUES ('$titulo', $precio, '$nombreImagen', '$descripcion', $habitaciones,
-            $wc, $estacionamiento, '$creado', $vendedores_id);";
+            //Insertar en la base de datos (Esto se agrega si no se aplica POO)
+            // $query =  " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, 
+            // estacionamiento, creado, vendedores_id) VALUES ('$titulo', $precio, '$nombreImagen', '$descripcion', $habitaciones,
+            // $wc, $estacionamiento, '$creado', $vendedores_id);";
 
             //echo $query;
 
@@ -176,14 +182,14 @@
 
         <fieldset>
             <legend>Vendedor</legend>
-            <select name="vendedor">
+            <select name="vendedores_id">
                 <option value="" <?php echo $vendedores_id===''?'selected':'';?> disabled>---Seleccione Vendedor---</option>
                 <?php while ($vendedores = mysqli_fetch_assoc($resconsult)): ?>
                     <option value="<?php echo $vendedores['id'];?>" <?php echo $vendedores['id']===$vendedores_id?'selected':'';?>> <?php echo $vendedores['nombre']." ".$vendedores['apellido'];?> </option>
                 <?php endwhile; ?>
             </select>
         </fieldset>
-
+        <input type="hidden" name="creado" value="<?php echo date('Y-m-d'); ?>">
         <input type="submit" value="Crear Propiedad" class="boton boton-verde">
     </form>
 
