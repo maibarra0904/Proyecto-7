@@ -1,8 +1,16 @@
+
+<?php
+//Reporte de error si existe
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+?>
+
 <?php
     //Usuario autenticado
     require __DIR__.'../../../includes/app.php';  
 
     use App\propiedad;
+    use Intervention\Image\ImageManagerStatic as Image;
 
     // $propiedad = new propiedad;
 
@@ -18,8 +26,8 @@
     $consulta = 'SELECT * FROM vendedores';
     $resconsult = mysqli_query($db,$consulta);
 
-    //Arreglo con mensajes de errores
-    $errores = [];
+    //Arreglo de errores
+    $errores  = propiedad::getErrores();
 
     $titulo = "";
     $precio = "";
@@ -32,96 +40,39 @@
     //Ejecución de código después que usuario envía todos los datos del formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        /** Crea una nueva instancia **/
         $propiedad = new propiedad($_POST);
 
-        //debugg($propiedad);
-        $propiedad->guardar();
-
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-        $precio = mysqli_real_escape_string($db, $_POST['precio']);
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
-        $wc = mysqli_real_escape_string($db, $_POST['wc']);
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']);
-        $creado = date('Y/m/d');
+        /** SUBIDA DE ARCHIVOS **/
         
-        //Asignando files a una variable
-        $imagen = $_FILES['imagen'];
+        //Generar un nombre único
+        $nombreImagen = md5( uniqid( rand(), true)).'.jpg';
 
-        // echo "<pre>";
-        // var_dump($_FILES['imagen']);
-        // echo "</pre>";
-
-        // exit;
-
-        if(!$titulo){
-            $errores[] = 'El titulo es indispensable';
-        };
-
-        if(!$precio){
-            $errores[] = 'Se requiere el precio';
-        };
-
-        if(!$descripcion){
-            $errores[] = 'Descripción requerida';
-        };
-
-        if(!$habitaciones){
-            $errores[] = 'Ingrese al menos 1 habitación';
-        };
-
-        if(!$wc){
-            $errores[] = 'Ingrese al menos 1 baño';
-        };
-
-        if(!$estacionamiento){
-            $errores[] = 'Ingrese al menos 1 estacionamiento';
-        };
-
-        if(!$vendedores_id){
-            $errores[] = 'Ingrese al menos 1 vendedor';
-        };
-
-        if(!$imagen['name'] || $imagen['error']){
-            $errores[] = 'La imagen es obligatoria';
-        };
-
-        //Validar por tamaño (100Kb máximo)
-        $medida = 1000*1000;
-
-        if($imagen['size'] > $medida) {
-            $errores[] = 'La imagen es muy pesada';
+        //Setear la imagen: Relizar un resize a la imagen con intervention
+        if($_FILES['imagen']['tmp_name']) {
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);
         }
+        
+
+        //Validar errores
+        $errores = $propiedad->validar();
 
 
         if(empty($errores)){
 
-            /** SUBIDA DE ARCHIVOS **/
-
             //Crear Carpeta
-            $carpetaImagenes = __DIR__.'../../../imagenes/'; 
-
-            if(!is_dir($carpetaImagenes)) {
-                mkdir($carpetaImagenes);
+            if(!is_dir(CARPETA_IMAGENES)) {
+                mkdir(CARPETA_IMAGENES);
             }
-            
-            //Generar un nombre único
-            $nombreImagen = md5( uniqid( rand(), true)).'.jpg';
-            
-            //Subir la imagenes    
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
-            //exit;
 
+            //Guarda la imagen en el servidor
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-            //Insertar en la base de datos (Esto se agrega si no se aplica POO)
-            // $query =  " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, 
-            // estacionamiento, creado, vendedores_id) VALUES ('$titulo', $precio, '$nombreImagen', '$descripcion', $habitaciones,
-            // $wc, $estacionamiento, '$creado', $vendedores_id);";
+            //Guarda la propiedad
+            $resultado = $propiedad->guardar();
 
-            //echo $query;
-
-            $resultado = mysqli_query($db, $query);
+            //$resultado = mysqli_query($db, $query);
 
             if($resultado) {
                 //Redireccionar al usuario para evitar datos duplicados

@@ -10,6 +10,8 @@ class propiedad {
     protected static $columnasDB = ['titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 
     'estacionamiento', 'creado', 'vendedores_id'];
     
+    //Arreglo con mensajes de errores
+    protected static $errores = [];
 
     public $id;
     public $titulo;
@@ -35,7 +37,7 @@ class propiedad {
         $this -> id = $args['id'] ?? '';
         $this -> titulo = $args['titulo'] ?? '';
         $this -> precio = $args['precio'] ?? '';
-        $this -> imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this -> imagen = $args['imagen'] ?? '';
         $this -> descripcion = $args['descripcion'] ?? '';
         $this -> habitaciones = $args['habitaciones'] ?? '';
         $this -> wc = $args['wc'] ?? '';
@@ -51,16 +53,21 @@ class propiedad {
         //Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
 
-        //Insertar base de datos
-        $query =  " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, 
-        estacionamiento, creado, vendedores_id) VALUES ('$this->titulo', $this->precio, '$this->imagen', '$this->descripcion', $this->habitaciones,
-        $this->wc, $this->estacionamiento, '$this->creado', $this->vendedores_id);";
 
+        //Insertar base de datos
+        $query =  " INSERT INTO propiedades (";
+        $query .= join(', ',array_keys($atributos));
+        $query .= " ) 
+        VALUES (' "; 
+        $query .= join("', '",array_values($atributos));
+        $query .= " ');";
+
+        //debugg($query);
 
         $resultado = self::$db->query($query);
 
 
-        //debugg($resultado);
+        return $resultado;
     }
 
     public function atributos() {
@@ -73,6 +80,7 @@ class propiedad {
         return $atributos;
     }
 
+    //volver Atributos inmunes a código malicioso
 
     public function sanitizarAtributos(){
         $atributos = $this->atributos();
@@ -84,6 +92,65 @@ class propiedad {
         }
 
         return $sanitizado;
+    }
+
+    //Subida de archivos
+    public function setImagen($imagen) {
+        //Asignar al atributo de imagen el nombre de la imagen
+        if($imagen) {
+            $this -> imagen = $imagen;
+        }
+
+    }
+
+    //Validación
+    public static function getErrores() {
+        return self::$errores;
+    }
+
+
+    public function validar() {
+        if(!$this->titulo){
+            self::$errores[] = 'El titulo es indispensable';
+        };
+
+        if(!$this->precio){
+            self::$errores[] = 'Se requiere el precio';
+        };
+
+        if(!$this->descripcion){
+            self::$errores[] = 'Descripción requerida';
+        };
+
+        if(!$this->habitaciones){
+            self::$errores[] = 'Ingrese al menos 1 habitación';
+        };
+
+        if(!$this->wc){
+            self::$errores[] = 'Ingrese al menos 1 baño';
+        };
+
+        if(!$this->estacionamiento){
+            self::$errores[] = 'Ingrese al menos 1 estacionamiento';
+        };
+
+        if(!$this->vendedores_id){
+            self::$errores[] = 'Ingrese al menos 1 vendedor';
+        };
+
+       
+        if(!$this->imagen){
+            self::$errores[] = 'La imagen es obligatoria';
+        };
+
+        // //Validar por tamaño (100Kb máximo)
+        // $medida = 1000*1000;
+
+        // if($this->imagen['size'] > $medida) {
+        //     self::$errores[] = 'La imagen es muy pesada';
+        // }
+
+        return self::$errores;
     }
   
 }
