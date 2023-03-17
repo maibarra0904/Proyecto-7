@@ -5,16 +5,15 @@
     
     autenticar();
 
-    //*-- Pasos para crear la conexión en base de datos--*
-    //Paso 1: Importar la conexión
-    //require __DIR__.'../../includes/config/database.php';
+    use App\propiedad;
+
+    // Implementar un método para obtener todas las propiedades
+    $propiedades = propiedad::all();
+
+    //debugg($propiedades);
+
     $db = conectarDB();
 
-    //Paso 2: Escribir el Query
-    $query = "SELECT * FROM propiedades";
-
-    //Paso 3: Consultar la BD
-    $resultadoBD = mysqli_query($db,$query); 
 
 
     //Muestra mensaje condicional (en caso que no preceda del formulario "resultado==1" no se hace nada)
@@ -78,24 +77,24 @@
             <!-- Paso 4: Mostrar los resultados -->
 
             <tbody>
-                <?php while($propiedad = mysqli_fetch_assoc($resultadoBD)): ?>
+                <?php foreach( $propiedades as $propiedad): ?>
                 
                     <tr>
-                        <td> <?php echo $propiedad['id']; ?> </td>
-                        <td> <?php echo $propiedad['titulo']; ?> </td>
-                        <td> <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" class="imagen-tabla"> </td>
-                        <td> $ <?php echo $propiedad['precio']; ?> </td>
+                        <td> <?php echo $propiedad->id; ?> </td>
+                        <td> <?php echo $propiedad->titulo; ?> </td>
+                        <td> <img src="/imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-tabla"> </td>
+                        <td> $ <?php echo $propiedad->precio; ?> </td>
                         <td>
-                            <form method="POST" class="w-100" onsubmit="return confirm('¿Estás seguro de eliminar la publicación: <?php echo $propiedad['titulo'] ?>?')">
+                            <form method="POST" class="w-100" onsubmit="return confirm('¿Estás seguro de eliminar la publicación: <?php echo $propiedad->titulo ?>?')">
 
-                                <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
+                                <input type="hidden" name="id" value="<?php echo $propiedad->id ?>">
                                 <input type="submit" class="boton-rojo-block" value="Eliminar">
                             </form>
                             
-                            <a href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-verde-block">Actualizar</a>
+                            <a href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-verde-block">Actualizar</a>
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
 
             </tbody>
 
@@ -106,7 +105,7 @@
 <?php
 
     //Paso 5: Cerrar la conexión
-    mysqli_close($db);
+    //mysqli_close($db);
 
     incluirTemplate('footers');
 ?>
