@@ -26,7 +26,7 @@ function autenticar() {
     $_SESSION['ultima_actividad'] = time();
 
     //Programación de cierre de sesión después de 5 minutos
-    if (isset($actividad) && (time() - $actividad > 300)) {
+    if (isset($actividad) && (time() - $actividad > 3000)) {
         // Cerrar la sesión
         //header("Refresh:5");
         header('Location: /');

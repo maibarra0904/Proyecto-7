@@ -35,7 +35,7 @@ ini_set('display_errors', '1');
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /** Crea una nueva instancia **/
-        $propiedad = new propiedad($_POST);
+        $propiedad = new propiedad($_POST['propiedad']);
 
         /** SUBIDA DE ARCHIVOS **/
         
@@ -43,8 +43,8 @@ ini_set('display_errors', '1');
         $nombreImagen = md5( uniqid( rand(), true)).'.jpg';
 
         //Setear la imagen: Relizar un resize a la imagen con intervention
-        if($_FILES['imagen']['tmp_name']) {
-            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+        if($_FILES['propiedad']['tmp_name']['imagen']) {
+            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
             $propiedad->setImagen($nombreImagen);
         }
         
@@ -98,7 +98,9 @@ ini_set('display_errors', '1');
         <!-- enctype junto con el metodo $_FILES permiten mostrar las propiedades del archivo que se sube -->
         
         <?php include '../../includes/templates/formulario_propiedades.php' ?>
-
+        
+        <input type="hidden" name="propiedad[creado]" value="<?php echo date('Y-m-d'); ?>">
+        <input type="hidden" name="propiedad[actualizado]" value="<?php echo date('Y-m-d'); ?>">
         <input type="submit" value="Crear Propiedad" class="boton boton-verde">
     </form>
 
