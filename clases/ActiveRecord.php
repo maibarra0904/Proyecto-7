@@ -192,6 +192,19 @@ class ActiveRecord {
         
     }
 
+    //Limitar la cantidad de registros que se observan en index
+    public static function get($cantidad){
+        
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad; //static permite utilizar una variable creada en la clase
+        //padre en las clases heredadas
+        //debugg($query);
+
+        $resultado = self::consultarSQL($query);
+        //$resultado = self::$db->query($query);
+        return $resultado;
+        
+    }
+
 
     // Busca un registro por su id
     public static function find($id){
