@@ -21,7 +21,7 @@
     }
 
     h3, p {
-        margin: 0;
+        margin: auto;
     }
     
 }
@@ -40,7 +40,7 @@
 .parrafo-anuncio {
     overflow: none;
     @include tablet {
-        height: 25rem;
+        height: auto;
     }
 }
 
