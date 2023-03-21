@@ -6,6 +6,13 @@
     
     $auth = $_SESSION['login'] ?? false;
 
+    $current_url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+    
+
+    $parsed_url = parse_url($current_url);
+    $host = $parsed_url['host'];
+    //debugg($_SERVER['HTTP_HOST']);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +29,7 @@
     <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
-                <a href="./index.php">
+                <a href="../../index.php">
                     <img src="/build/img/logo.svg" alt="Logotipo de Bienes Raices">
                     
                 </a>
@@ -36,7 +43,11 @@
                 <div class="derecha" id="menu">
                     
                     <div class="superior">
-                        <?php if($auth) { ?> 
+                        <?php if($auth) { 
+                            if(strpos($_SERVER['REQUEST_URI'],'/admin') === false){ ?> 
+                            <a href="/admin/" class="adm">Admin</a> <?php }; 
+                            //debugg(strpos($_SERVER['REQUEST_URI'],'/admin')!== false);
+                            ?> 
                             <a href="/cerrar-sesion.php" class="cie">Cerrar Sesión</a>
                         <?php } else { if($_SERVER['REQUEST_URI']!='/login.php') : ?>
                             <a href="login.php" class="ini">Iniciar Sesión</a>
@@ -46,10 +57,10 @@
                         
 
                     <nav class="navegacion">
-                        <a href="nosotros.php">Nosotros</a>
-                        <a href="anuncios.php">Anuncios</a>
-                        <a href="blog.php">Blog</a>
-                        <a href="contacto.php">Contacto</a>
+                        <a href="../../nosotros.php">Nosotros</a>
+                        <a href="../../anuncios.php">Anuncios</a>
+                        <a href="../../blog.php">Blog</a>
+                        <a href="../../contacto.php">Contacto</a>
                         
                     </nav>
                     

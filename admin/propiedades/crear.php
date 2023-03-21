@@ -7,16 +7,24 @@ ini_set('display_errors', '1');
 
 <?php
     //Usuario autenticado
-    require __DIR__.'../../../includes/app.php';  
+    require __DIR__.'../../../includes/app.php';
 
+    use App\ActiveRecord;
     use App\propiedad;
+    use App\vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
 
     $propiedad = new propiedad;
 
-    // $propiedad = new propiedad;
+    //Consulta para obtener todos los vendedores
+    $vendedores = vendedor::all();
+    
+    // $ar=[];
+    // foreach($vendedores as $vendedor) {
+    //     $ar[] = $vendedor->nombre;
+    // };
 
-    // debugg($propiedad);
+    // debugg($ar);
 
     autenticar();
 
@@ -68,15 +76,8 @@ ini_set('display_errors', '1');
 
             //$resultado = mysqli_query($db, $query);
 
-            if($resultado) {
-                //Redireccionar al usuario para evitar datos duplicados
-
-                header('Location: /admin?resultado=1'); //Se crea variable dentro para llamarla en index
-            }
-        } else {
-            //echo "Registro no insertado";
-        };
-
+            
+        } 
         
     };
 

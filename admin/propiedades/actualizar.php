@@ -5,12 +5,15 @@
     ini_set('display_errors', '1');
 
     use App\propiedad;
+    use App\vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
 
     require __DIR__.'../../../includes/app.php';  
     
     //Configuración de un usuario autenticado
     autenticar();
+
+    $vendedores = vendedor::all();
 
     //Validar la URL por ID valido
     $id = $_GET['id'];
@@ -40,7 +43,7 @@
     $wc = $propiedad->wc;
     $estacionamiento = $propiedad->estacionamiento;
     $vendedores_id = $propiedad->vendedores_id;
-    $imagenProp = $propiedad->imagen;
+    $imagen = $propiedad->imagen;
 
     //Ejecución de código después que usuario envía todos los datos del formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,10 +71,11 @@
         }
 
         if(empty($errores)){
-
-            $image->save(CARPETA_IMAGENES . $nombreImagen);
-
-            $resultado = $propiedad->guardar();
+            //$image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+            if($_FILES['propiedad']['tmp_name']['imagen']) {
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
+            }
+            $propiedad->guardar();
 
         } else {
             //echo "Registro no insertado";

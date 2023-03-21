@@ -32,12 +32,16 @@
     <input type="number" name="propiedad[estacionamiento]" placeholder="Ej: 1" min="1" max="9" value="<?php echo s($propiedad->estacionamiento); ?>">
 </fieldset>
 
-<!-- <fieldset>
+<fieldset>
     <legend>Vendedor</legend>
-    <select name="vendedores_id">
-        <option value="" <?php echo $vendedores_id===''?'selected':'';?> disabled>---Seleccione Vendedor---</option>
-        <?php while ($vendedores = mysqli_fetch_assoc($resconsult)): ?>
-            <option value="<?php echo $vendedores['id'];?>" <?php echo $vendedores['id']===$vendedores_id?'selected':'';?>> <?php echo $vendedores['nombre']." ".$vendedores['apellido'];?> </option>
-        <?php endwhile; ?>
+    <label for="vendedor">Vendedor</label>
+    <select name="propiedad[vendedores_id]" id='vendedor'>
+        <option value="">-- Seleccione --</option>
+        <?php foreach($vendedores as $vendedores) { ?>
+            <option
+            <?php echo $propiedad->vendedores_id === $vendedores->id ? 'selected ' : ' ';?> 
+            value="<?php echo s($vendedores->id)?>"> <?php echo s($vendedores->nombre) . " " 
+            . s($vendedores->apellido);?> </option>
+        <?php } ?>
     </select>
-</fieldset> -->
+</fieldset>
