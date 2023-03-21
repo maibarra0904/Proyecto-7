@@ -1,12 +1,14 @@
 @include tablet {
     .contenedor-anuncios {
         @include grid(2, 2rem);
+        grid-template-columns: repeat($columnas, 50%);
     }
 }
 
 @include desktop {
     .contenedor-anuncios {
         @include grid(3, 2rem);
+        grid-template-columns: repeat($columnas, 30%);
     }
 }
 
@@ -36,6 +38,7 @@
 }
 
 .parrafo-anuncio {
+    overflow: none;
     @include tablet {
         height: 25rem;
     }

@@ -124,3 +124,23 @@
     
     //background-color: $blanco;
 }
+
+.ancho {
+    border: none;
+    border-top: 1px solid #000;
+}
+
+
+.admTitulo{
+    color: $verde;
+    font-weight: bold;
+    // &::after {
+    //     content: '';
+    //     display: block;
+    //     margin: auto;
+    //     width: 15rem;
+    //     height: .5rem;
+    //     background-color: $negro;
+    //     margin-top: 1rem;
+    // }
+}

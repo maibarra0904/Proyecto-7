@@ -72,12 +72,13 @@
                 <p class="alert exito"><?php echo s($mensaje) ?></p>
                 <?php header("refresh:2;url=/admin");
                 ?>
-        <?php }
-        ?>
+        <?php };?>
 
-        <h2>Propiedades</h2>
-        
-        <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <h5 class="ancho"></h5>
+        <h2 class="admTitulo">Propiedades</h2>
+        <h5 class="ancho"></h5>
+
+        <a href="/admin/propiedades/crear.php" class="boton boton-amarillo">Nueva Propiedad</a>
 
         <table class="propiedades">
             <thead>
@@ -115,8 +116,9 @@
             </tbody>
 
         </table>
-
-        <h2>Vendedores</h2>
+        <h5 class="ancho"></h5>
+        <h2 class="admTitulo">Vendedores</h2>
+        <h5 class="ancho"></h5>
 
         <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
 
