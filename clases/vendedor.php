@@ -23,4 +23,19 @@ class vendedor extends ActiveRecord {
         
     }
 
+    public function validar() {
+        if(!$this->nombre){
+            self::$errores[] = 'Debes ingresar un nombre';
+        };
+        if(!$this->apellido){
+            self::$errores[] = 'Debes ingresar un apellido';
+        };
+
+        if(!preg_match("/^\d{10}$/", $this->telefono)) {
+            self::$errores[] = 'Debes ingresar un teléfono válido';
+        }
+
+        return self::$errores;
+    }
+
 }

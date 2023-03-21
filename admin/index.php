@@ -66,17 +66,18 @@
     <main class="contenedor seccion">
         <h1>Administrador de bienes raices</h1>
 
-        <?php if($resultado==1):?>
-            <p class="alert exito">Anuncio creado correctamente</p>
-        <?php elseif($resultado==2):?>
-            <p class="alert exito">Anuncio actualizado correctamente</p>
-        <?php elseif($resultado==3):?>
-            <p class="alert exito">Anuncio eliminado correctamente</p>
-        <?php endif; ?>
-
-        <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <?php 
+            $mensaje = notificacionEvento(intval($resultado));
+            if($mensaje) { ?>
+                <p class="alert exito"><?php echo s($mensaje) ?></p>
+                <?php header("refresh:2;url=/admin");
+                ?>
+        <?php }
+        ?>
 
         <h2>Propiedades</h2>
+        
+        <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
 
         <table class="propiedades">
             <thead>
@@ -117,6 +118,8 @@
 
         <h2>Vendedores</h2>
 
+        <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
+
         <table class="propiedades">
             <thead>
                 <th>ID</th>
@@ -142,7 +145,7 @@
                                 <input type="submit" class="boton-rojo-block" value="Eliminar">
                             </form>
                             
-                            <a href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-verde-block">Actualizar</a>
+                            <a href="/admin/vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-verde-block">Actualizar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

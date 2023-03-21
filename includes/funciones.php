@@ -57,3 +57,64 @@ function validarTipoContenido($tipo) {
 
     return in_array($tipo, $tipos);
 }
+
+function notificacionEvento($id) {
+
+    $mensaje = '';
+    $form = '';
+
+    //Verifica url anterior
+    $urlAnterior = $_SERVER['HTTP_REFERER'];
+
+    if(isset($urlAnterior)) {
+        if(strpos($urlAnterior,'propiedades')){
+            $form = 'propiedad';
+        } else if (strpos($urlAnterior,'vendedores')) {
+            $form = 'vendedor';
+        };
+    }
+    
+
+
+    switch($id) {
+        case 1:
+            switch($form) {
+                case 'propiedad':
+                    $mensaje = 'Propiedad agregada correctamente';
+                    break;
+                case 'vendedor':
+                    $mensaje = 'Vendedor agregado correctamente';
+                    break;
+                default:
+                    $mensaje = false;
+                    break;
+            }
+            break;
+        case 2:
+            switch($form) {
+                case 'propiedad':
+                    $mensaje = 'Propiedad actualizada correctamente';
+                    break;
+                case 'vendedor':
+                    $mensaje = 'Vendedor actualizado correctamente';
+                    break;
+                default:
+                    $mensaje = false;
+                    break;
+            }
+            break;
+        case 3:
+            switch($form) {
+                default:
+                    $mensaje = 'Registro eliminado exitosamente';
+                    break;
+            }
+            break;
+
+    }
+
+
+    return $mensaje;
+
+
+}

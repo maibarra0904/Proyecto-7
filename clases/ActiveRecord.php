@@ -104,7 +104,7 @@ class ActiveRecord {
         //Eliminar la propiedad
         $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
 
-        
+        //debugg($query);
 
         $resultado = self::$db->query($query);
 
